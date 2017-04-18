@@ -1,0 +1,16 @@
+<h2>All the Requests!</h2>
+
+<table>
+  <tr>
+    <% @requests.first.attributes.each do |k,v| %>
+      <td><%= k %></td>
+    <% end %>
+  </tr>
+  <% @requests.each do |request| %>
+  <tr>
+    <% request.attributes.each do |k,v| %>
+    <td><%= v %></td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>

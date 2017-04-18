@@ -1,0 +1,30 @@
+<h2> <%= @cat.name %> </h2>
+
+<ul>
+<% @cat.attributes.each do |k, v| %>
+  <% next if k == "created_at" || k == "updated_at" || v.nil? %>
+  <li><%= "#{k}: #{v}" %></li>
+<% end %>
+</ul>
+
+<% requests = @cat.cat_rental_requests.order(:start_date) %>
+<% unless requests.empty? %>
+<table>
+  <tr>
+    <% requests.first.attributes.each do |k, v| %>
+      <td> <%= k %> </td>
+    <% end %>
+  </tr>
+  <% requests.each do |request| %>
+    <tr>
+      <% request.attributes.each do |k, v| %>
+        <td> <%= v %> </td>
+      <% end %>
+      <% if request.status == 'PENDING' %>
+        <td> <%= button_to 'Approve!', cat_rental_request_url(request), method: 'patch' %> </td>
+        <td> <%= button_to 'Denied!', cat_rental_request_url(request), method: 'delete' %> </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+<% end %>

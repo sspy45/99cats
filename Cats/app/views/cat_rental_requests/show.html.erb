@@ -1,0 +1,15 @@
+<h2> Show me the cat</h2>
+
+<table>
+  <tr>
+    <% @request.attributes.each do |k,v| %>
+      <td><%= k %></td>
+    <% end %>
+  </tr>
+  <tr>
+    <% @request.attributes.each do |k,v| %>
+    <td><%= v %></td>
+    <% end %>
+  </tr>
+
+</table>

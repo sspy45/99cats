@@ -1,0 +1,53 @@
+<% if cat.persisted? %>
+  <% action_url = cat_url(cat) %>
+<% else %>
+  <% action_url = cats_url %>
+<% end %>
+
+
+<form action='<%= action_url %>' method='post'>
+  <% if cat.persisted? %>
+    <input type='hidden' name='_method' value='PATCH'>
+  <% end %>
+
+  <label for='name'>Name</label>
+  <input id='name'
+    type='text'
+    name='cat[name]'
+    value= <%= cat.name %> >
+  <br>
+
+  <label for='color'>Color</label>
+  <select name='cat[color]'>
+
+    <option value=''
+      disabled <%= 'selected' if cat.color.nil? %> >
+      --Select Color--
+    </option>
+
+    <% %w(black white grey).each do |col| %>
+
+      <option value = '<%= col %>'
+        <%= 'selected' if cat.color == col %> >
+          <%= col.capitalize %></option>
+
+    <% end %>
+  </select>
+  <br>
+
+  <label for='sex'>Sex</label>
+  M<input type='radio' name='cat[sex]' value='M' <%= 'checked' if cat.sex == 'M' || cat.sex.nil? %> >
+  F<input type='radio' name='cat[sex]' value='F' <%= 'checked' if cat.sex == 'F' %> >
+  <br>
+
+  <label>Description
+    <textarea name='cat[description]'><%= cat.description %></textarea>
+  </label>
+  <br>
+
+  <label for='birth_date'>Birth Date</label>
+  <input id='birth_date' type = 'date'        name='cat[birth_date]' value = <%= cat.birth_date ? cat.birth_date : "" %> >
+  <br>
+
+  <input type='submit' value='Add cat!'>
+</form>
